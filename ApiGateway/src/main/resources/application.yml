@@ -1,0 +1,33 @@
+server:
+    port: 8890
+spring:
+    application:
+      name: gateway
+  
+    cloud:
+      gateway:
+        routes:
+          - id: USER-SERVICES
+            predicates:
+              - Path=/users/**
+            uri:  lb://user-services
+
+          - id: HOTEL-SERVICES
+            predicates:
+              - Path=/hotels/**
+            uri:  lb://hotel-services
+
+          - id: RATING-SERVICES
+            predicates:
+              - Path=/ratings/**
+            uri:  lb://rating-services
+
+eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8888/eureka
+    instance:
+      prefer-ip-address: true    
+  
+
+  
